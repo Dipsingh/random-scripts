@@ -1,0 +1,6 @@
+
+
+set class-of-service forwarding-classes queue 0 best-effort
+set class-of-service forwarding-classes queue 1 scavenger
+set class-of-service classifiers dscp ip_dscp_classifier forwarding-class voice loss-priority low code-points ef
+

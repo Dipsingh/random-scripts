@@ -1,0 +1,39 @@
+
+system {
+    host-name {{ host_name }};
+    name-server {{ dns_server }};
+    domain-name {{ domain_name }};
+    backup-router {{ backup_router }};
+    services {
+        telnet;
+    }
+}
+
+interfaces {
+    {% for item in interfaces %}
+    {{ item }} {
+        description "{{ description }}";
+        unit 0 {
+            family {{ family }} {
+                address 1.1.1.1/24;
+            }
+            family mpls;
+        }
+
+    } {% endfor %}
+}
+protocols {
+    mpls {
+        {% for item in interfaces %}
+        interface {{ item }};
+        {% endfor %}
+    }
+    rsvp {
+        {% for item in interfaces %}
+        interface {{ item }};
+        {% endfor %}
+    }
+
+}
+
+
